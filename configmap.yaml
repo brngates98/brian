@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: meraki-config
+  namespace: agents
+data:
+  config.alloy: |+
+    remotecfg {
+        url            = "https://fleet-management-prod-008.grafana.net"
+        id             = constants.hostname # this pulls in the pods name 
+        attributes     = {"app" = "meraki_exporter"} #this is optional i added some tags to auto orchestrate specific configs via fleet management
+        poll_frequency = "60s"
+
+        basic_auth {
+            username = "username"
+            password = "api_key"
+        }
+    }
